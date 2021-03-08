@@ -1,7 +1,8 @@
 const board = document.getElementById('screen');
 const ctx = board.getContext('2d');
 
-import { WorldMap } from 'worldmap';
+import WorldMap from './data/modules/worldmap.js';
+import {sum, intRandom, floatRandom, boolRandom} from './data/modules/calculate.js';
 
 
 

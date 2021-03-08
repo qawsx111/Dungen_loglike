@@ -15,4 +15,4 @@ function boolRandom(percent){
 	return bool;
 }
 
-export {sum, intRandom, floatRandom, boolRandom};
+export {sum, intRandom, floatRandom, boolRandom }
