@@ -1,6 +1,8 @@
 const board = document.getElementById('screen');
 const ctx = board.getContext('2d');
 
+const msgBox = document.getElementById('msgBox');
+
 var calculate = {
 
     sum : (x, y) => {
@@ -22,17 +24,26 @@ var calculate = {
 
 }
 
+var settings = {
+	NowX : null,
+	NowY : null,
+	worldMapCellX : 80,
+	worldMapCellY : 50
+
+}
+
 var MapDatas = {
-	"grass" : {
-        
-    }
+	"grass" : { color : "green"},
+	"select" : { color : "blue"}
+
 }
 
 class WorldMap {
 	
 	Map = [];
-	WorldMapX = 20;
-	WorldMapY = 20;
+	WorldMapX = 18;
+	WorldMapY = 9;
+	Status = "grass";
 	
 	CreateMapData(){
 		for(let y = 0; y < this.WorldMapY; y++){
@@ -48,10 +59,18 @@ class WorldMap {
 	}
 	
 	Draw() {
+		board.setAttribute('width', this.WorldMapX * settings.worldMapCellX);
+		board.setAttribute('height', this.WorldMapY * settings.worldMapCellY);
+		settings.NowX = this.WorldMapX * settings.worldMapCellX;
+		settings.NowY = this.WorldMapY * settings.worldMapCellY;
+
 		for(let y = 0; y < this.WorldMapY; y++){
 		for(let x = 0; x < this.WorldMapX; x++){
-			atx.fillStyle = this.Map[y][x];
-			atx.fillrect(x, y, 1, 1);
+			let cellX = x * settings.worldMapCellX;
+			let cellY = y * settings.worldMapCellY;
+			ctx.strokeRect(cellX, cellY, settings.worldMapCellX, settings.worldMapCellY);
+			ctx.fillStyle = MapDatas[this.Status].color;
+			ctx.fillRect(cellX, cellY, settings.worldMapCellX, settings.worldMapCellY);
 		}
 		}
 
@@ -59,6 +78,29 @@ class WorldMap {
 	
 }
 
+class Character {
+	
+	
+}
+
+class Msg {
+	
+	Box = msgBox;
+	msg = "";
+
+	Show() {
+		this.Box.setAttribute('width', settings.NowX);
+		this.Box.setAttribute('height', settings.NowX);
+		this.Box.innerText = msg;
+	}
+
+
+}
+
+
+var map = new WorldMap();
+map.CreateMapData();
+map.Draw();
 
 
 
@@ -71,5 +113,3 @@ class WorldMap {
 
 
 
-
-//보드 크기 조절 = board.setAttribute('width', '600');
